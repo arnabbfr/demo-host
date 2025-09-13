@@ -1,0 +1,613 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Civic Report App</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            line-height: 1.4;
+            color: #333;
+            background-color: #f8f6f4;
+        }
+
+        /* Header Section */
+        .header {
+            background: linear-gradient(135deg, #f1ebe5 0%, #e8ddd4 100%);
+            padding: 20px 0 60px 0;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        .nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 40px;
+        }
+
+        .logo {
+            background: #d2691e;
+            color: white;
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-weight: 600;
+            font-size: 14px;
+        }
+
+        .download-btn {
+            background: #8B4513;
+            color: white;
+            padding: 8px 16px;
+            border-radius: 20px;
+            text-decoration: none;
+            font-size: 12px;
+            font-weight: 500;
+        }
+
+        .hero-section {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 60px;
+        }
+
+        .hero-left {
+            flex: 1;
+            max-width: 450px;
+        }
+
+        .hero-title {
+            font-size: 3.5rem;
+            font-weight: 800;
+            line-height: 0.9;
+            color: #333;
+            margin-bottom: 20px;
+        }
+
+        .hero-subtitle {
+            color: #666;
+            font-size: 16px;
+            line-height: 1.6;
+            margin-bottom: 30px;
+            max-width: 400px;
+        }
+
+        .learn-more-btn {
+            background: #ff6b35;
+            color: white;
+            padding: 12px 28px;
+            border-radius: 25px;
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 14px;
+            display: inline-block;
+        }
+
+        .hero-right {
+            flex: 1;
+            position: relative;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .phone-cards-container {
+            position: relative;
+            z-index: 2;
+        }
+
+        .floating-card {
+            background: white;
+            border-radius: 12px;
+            padding: 16px;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.08);
+            margin-bottom: 12px;
+            position: relative;
+            min-width: 280px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .card-icon {
+            width: 12px;
+            height: 12px;
+            background: #ff9f43;
+            border-radius: 3px;
+            flex-shrink: 0;
+        }
+
+        .card-content h4 {
+            font-size: 14px;
+            font-weight: 600;
+            color: #333;
+            margin-bottom: 2px;
+        }
+
+        .card-content p {
+            font-size: 12px;
+            color: #888;
+        }
+
+        .card-check {
+            margin-left: auto;
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            border: 2px solid #4CAF50;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #4CAF50;
+            font-size: 12px;
+        }
+
+        .person-illustration {
+            position: absolute;
+            right: -40px;
+            bottom: -30px;
+            z-index: 1;
+        }
+
+        .person-figure {
+            width: 100px;
+            height: 140px;
+            background: #ff9f43;
+            border-radius: 50px 50px 20px 20px;
+            position: relative;
+        }
+
+        .person-head {
+            position: absolute;
+            width: 35px;
+            height: 35px;
+            background: #8B4513;
+            border-radius: 50%;
+            top: 15px;
+            left: 32px;
+        }
+
+        .person-shirt {
+            position: absolute;
+            width: 80px;
+            height: 60px;
+            background: #ff9f43;
+            top: 45px;
+            left: 10px;
+            border-radius: 8px;
+        }
+
+        /* Statistics Section */
+        .stats-section {
+            background: linear-gradient(45deg, #ff9f43 0%, #ff6b35 100%);
+            padding: 50px 0;
+            color: white;
+        }
+
+        .stats-container {
+            display: flex;
+            justify-content: space-around;
+            text-align: center;
+        }
+
+        .stat-item {
+            flex: 1;
+        }
+
+        .stat-number {
+            font-size: 3.5rem;
+            font-weight: 800;
+            margin-bottom: 8px;
+        }
+
+        .stat-label {
+            font-size: 14px;
+            font-weight: 500;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        /* Featured Content Section */
+        .featured-section {
+            background: linear-gradient(45deg, #ff9f43 0%, #ff6b35 100%);
+            padding: 0 0 60px 0;
+        }
+
+        .featured-content {
+            display: flex;
+            align-items: center;
+            gap: 40px;
+            background: linear-gradient(45deg, #ff9f43 0%, #ff6b35 100%);
+            padding: 0 40px 40px 40px;
+        }
+
+        .featured-image {
+            flex: 1;
+            max-width: 400px;
+        }
+
+        .featured-image img {
+            width: 100%;
+            height: 250px;
+            object-fit: cover;
+            border-radius: 15px;
+        }
+
+        .featured-text {
+            flex: 1;
+            color: white;
+        }
+
+        .featured-text h3 {
+            font-size: 1.8rem;
+            font-weight: 700;
+            line-height: 1.3;
+            margin-bottom: 15px;
+        }
+
+        .featured-dots {
+            display: flex;
+            gap: 8px;
+            margin-top: 20px;
+        }
+
+        .dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: rgba(255,255,255,0.5);
+        }
+
+        .dot.active {
+            background: white;
+        }
+
+        /* Our Agendas Section */
+        .agendas-section {
+            background: white;
+            padding: 80px 0;
+        }
+
+        .agendas-title {
+            text-align: center;
+            font-size: 2.5rem;
+            font-weight: 800;
+            color: #333;
+            margin-bottom: 60px;
+        }
+
+        .agendas-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 40px;
+        }
+
+        .agenda-card {
+            background: #f8f8f8;
+            border-radius: 20px;
+            padding: 40px 30px;
+            text-align: center;
+            transition: transform 0.3s ease;
+        }
+
+        .agenda-card:hover {
+            transform: translateY(-8px);
+        }
+
+        .agenda-icon {
+            width: 100px;
+            height: 100px;
+            margin: 0 auto 25px;
+            border-radius: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+        }
+
+        .agenda-card:nth-child(1) .agenda-icon {
+            background: #ff6b35;
+        }
+
+        .agenda-card:nth-child(2) .agenda-icon {
+            background: #e8e8e8;
+        }
+
+        .agenda-card:nth-child(3) .agenda-icon {
+            background: #ff9f43;
+        }
+
+        /* Phone Icon */
+        .phone-icon {
+            width: 35px;
+            height: 60px;
+            background: white;
+            border-radius: 12px;
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .phone-icon::before {
+            content: '';
+            width: 25px;
+            height: 3px;
+            background: #ff6b35;
+            border-radius: 2px;
+            position: absolute;
+            top: 15px;
+        }
+
+        .phone-icon::after {
+            content: '';
+            width: 15px;
+            height: 3px;
+            background: #ff6b35;
+            border-radius: 2px;
+            position: absolute;
+            top: 22px;
+        }
+
+        /* Person Icon */
+        .person-icon-agenda {
+            width: 45px;
+            height: 45px;
+            background: #666;
+            border-radius: 50%;
+            position: relative;
+        }
+
+        .person-icon-agenda::before {
+            content: '';
+            width: 60px;
+            height: 25px;
+            background: #666;
+            border-radius: 0 0 30px 30px;
+            position: absolute;
+            bottom: -15px;
+            left: -7px;
+        }
+
+        /* Location Icon */
+        .location-icon {
+            width: 35px;
+            height: 45px;
+            background: #e91e63;
+            border-radius: 50% 50% 50% 0;
+            transform: rotate(-45deg);
+            position: relative;
+        }
+
+        .location-icon::before {
+            content: '';
+            width: 18px;
+            height: 18px;
+            background: white;
+            border-radius: 50%;
+            position: absolute;
+            top: 8px;
+            left: 8px;
+        }
+
+        .agenda-card h3 {
+            font-size: 18px;
+            font-weight: 700;
+            color: #333;
+            margin-bottom: 12px;
+        }
+
+        .agenda-card p {
+            font-size: 14px;
+            color: #666;
+            margin-bottom: 25px;
+            line-height: 1.5;
+        }
+
+        .agenda-btn {
+            background: #ff6b35;
+            color: white;
+            padding: 10px 25px;
+            border-radius: 25px;
+            text-decoration: none;
+            font-size: 14px;
+            font-weight: 500;
+        }
+
+        /* Mobile Responsive */
+        @media (max-width: 768px) {
+            .hero-section {
+                flex-direction: column;
+                gap: 30px;
+                text-align: center;
+            }
+
+            .hero-title {
+                font-size: 2.5rem;
+            }
+
+            .stats-container {
+                flex-direction: column;
+                gap: 30px;
+            }
+
+            .featured-content {
+                flex-direction: column;
+                padding: 20px;
+            }
+
+            .agendas-grid {
+                grid-template-columns: 1fr;
+                gap: 30px;
+            }
+
+            .person-illustration {
+                display: none;
+            }
+
+            .floating-card {
+                min-width: 250px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .container {
+                padding: 0 15px;
+            }
+
+            .hero-title {
+                font-size: 2rem;
+            }
+
+            .stat-number {
+                font-size: 2.5rem;
+            }
+
+            .agendas-title {
+                font-size: 2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header Section -->
+    <section class="header">
+        <div class="container">
+            <nav class="nav">
+                <div class="logo">Societal</div>
+                <a href="#" class="download-btn">Download</a>
+            </nav>
+            
+            <div class="hero-section">
+                <div class="hero-left">
+                    <h1 class="hero-title">Report.<br>Track.<br>Resolve.</h1>
+                    <p class="hero-subtitle">Empowering communities to report civic issues with photos, location tagging, and real-time tracking, streamlining municipal response through smart tech.</p>
+                    <a href="#" class="learn-more-btn">Learn more</a>
+                </div>
+                
+                <div class="hero-right">
+                    <div class="phone-cards-container">
+                        <div class="floating-card">
+                            <div class="card-icon"></div>
+                            <div class="card-content">
+                                <h4>Road Repair Request</h4>
+                                <p>Pothole on Main Street requires attention</p>
+                            </div>
+                            <div class="card-check">✓</div>
+                        </div>
+                        <div class="floating-card">
+                            <div class="card-icon"></div>
+                            <div class="card-content">
+                                <h4>Street Light Issue</h4>
+                                <p>Broken light on Park Avenue</p>
+                            </div>
+                        </div>
+                        <div class="floating-card">
+                            <div class="card-icon"></div>
+                            <div class="card-content">
+                                <h4>Water Leak Report</h4>
+                                <p>Pipe burst near community center</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="person-illustration">
+                        <div class="person-figure">
+                            <div class="person-head"></div>
+                            <div class="person-shirt"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Statistics Section -->
+    <section class="stats-section">
+        <div class="container">
+            <div class="stats-container">
+                <div class="stat-item">
+                    <div class="stat-number">1578</div>
+                    <div class="stat-label">Cases<br>Reported</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number">987</div>
+                    <div class="stat-label">Cases<br>Resolved</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number">65%</div>
+                    <div class="stat-label">Resolution<br>Rate</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Featured Content Section -->
+    <section class="featured-section">
+        <div class="container">
+            <div class="featured-content">
+                <div class="featured-image">
+                    <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='250' viewBox='0 0 400 250'%3E%3Crect width='400' height='250' fill='%23333'/%3E%3Cpath d='M50 200 Q100 180 150 200 T250 200 T350 200' stroke='%23666' stroke-width='3' fill='none'/%3E%3Crect x='80' y='170' width='40' height='20' fill='%23ff6b35' rx='3'/%3E%3Crect x='150' y='175' width='35' height='18' fill='%23ffb84d' rx='3'/%3E%3Crect x='220' y='165' width='45' height='25' fill='%23ff6b35' rx='3'/%3E%3Ccircle cx='90' cy='185' r='8' fill='%23333'/%3E%3Ccircle cx='110' cy='185' r='8' fill='%23333'/%3E%3Ccircle cx='165' cy='188' r='7' fill='%23333'/%3E%3Ccircle cx='180' cy='188' r='7' fill='%23333'/%3E%3Ctext x='200' y='130' text-anchor='middle' fill='white' font-family='Arial' font-size='12'%3ETraffic Scene%3C/text%3E%3C/svg%3E" alt="Traffic scene showing road conditions">
+                </div>
+                <div class="featured-text">
+                    <h3>An average of 8,880 accidents caused by potholes cost $500 each year between 2018 and 2022 in India.</h3>
+                    <div class="featured-dots">
+                        <div class="dot active"></div>
+                        <div class="dot"></div>
+                        <div class="dot"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Our Agendas Section -->
+    <section class="agendas-section">
+        <div class="container">
+            <h2 class="agendas-title">Our Agendas</h2>
+            <div class="agendas-grid">
+                <div class="agenda-card">
+                    <div class="agenda-icon">
+                        <div class="phone-icon"></div>
+                    </div>
+                    <h3>Smart Reporting</h3>
+                    <p>Report issues through our smart mobile platform</p>
+                    <a href="#" class="agenda-btn">Learn more</a>
+                </div>
+                
+                <div class="agenda-card">
+                    <div class="agenda-icon">
+                        <div class="person-icon-agenda"></div>
+                    </div>
+                    <h3>Track your report in real time</h3>
+                    <p>Monitor progress and get updates on your submissions</p>
+                    <a href="#" class="agenda-btn">Learn more</a>
+                </div>
+                
+                <div class="agenda-card">
+                    <div class="agenda-icon">
+                        <div class="location-icon"></div>
+                    </div>
+                    <h3>Explore civic issues nearby</h3>
+                    <p>Discover and engage with local community problems</p>
+                    <a href="#" class="agenda-btn">Learn more</a>
+                </div>
+            </div>
+        </div>
+    </section>
+</body>
+</html>
