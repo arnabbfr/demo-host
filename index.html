@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Civic Report App</title>
+    <title>Civic Issue Reporting Portal</title>
     <style>
         * {
             margin: 0;
@@ -12,602 +12,660 @@
         }
 
         body {
-            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
-            line-height: 1.4;
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
             color: #333;
-            background-color: #f8f6f4;
-        }
-
-        /* Header Section */
-        .header {
-            background: linear-gradient(135deg, #f1ebe5 0%, #e8ddd4 100%);
-            padding: 20px 0 60px 0;
-            position: relative;
-            overflow: hidden;
         }
 
         .container {
             max-width: 1200px;
             margin: 0 auto;
-            padding: 0 20px;
+            padding: 20px;
         }
 
-        .nav {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 40px;
+        .header {
+            text-align: center;
+            margin-bottom: 30px;
+            background: rgba(255, 255, 255, 0.95);
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
         }
 
-        .logo {
-            background: #d2691e;
-            color: white;
-            padding: 8px 16px;
-            border-radius: 20px;
-            font-weight: 600;
-            font-size: 14px;
+        .header h1 {
+            color: #2c3e50;
+            margin-bottom: 10px;
+            font-size: 2.5rem;
         }
 
-        .download-btn {
-            background: #8B4513;
-            color: white;
-            padding: 8px 16px;
-            border-radius: 20px;
-            text-decoration: none;
-            font-size: 12px;
-            font-weight: 500;
+        .header p {
+            color: #666;
+            font-size: 1.1rem;
         }
 
-        .hero-section {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            gap: 60px;
+        .main-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+            align-items: start;
         }
 
-        .hero-left {
-            flex: 1;
-            max-width: 450px;
+        .report-section, .map-section {
+            background: rgba(255, 255, 255, 0.95);
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
         }
 
-        .hero-title {
-            font-size: 3.5rem;
-            font-weight: 800;
-            line-height: 0.9;
-            color: #333;
+        .section-title {
+            font-size: 1.8rem;
+            color: #2c3e50;
+            margin-bottom: 25px;
+            text-align: center;
+            position: relative;
+        }
+
+        .section-title:after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 50px;
+            height: 3px;
+            background: #667eea;
+            border-radius: 2px;
+        }
+
+        .form-group {
             margin-bottom: 20px;
         }
 
-        .hero-subtitle {
-            color: #666;
-            font-size: 16px;
-            line-height: 1.6;
-            margin-bottom: 30px;
-            max-width: 400px;
-        }
-
-        .learn-more-btn {
-            background: #ff6b35;
-            color: white;
-            padding: 12px 28px;
-            border-radius: 25px;
-            text-decoration: none;
-            font-weight: 500;
-            font-size: 14px;
-            display: inline-block;
-        }
-
-        .hero-right {
-            flex: 1;
-            position: relative;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-        }
-
-        .phone-cards-container {
-            position: relative;
-            z-index: 2;
-        }
-
-        .floating-card {
-            background: white;
-            border-radius: 12px;
-            padding: 16px;
-            box-shadow: 0 8px 25px rgba(0,0,0,0.08);
-            margin-bottom: 12px;
-            position: relative;
-            min-width: 280px;
-            display: flex;
-            align-items: center;
-            gap: 12px;
-        }
-
-        .card-icon {
-            width: 12px;
-            height: 12px;
-            background: #ff9f43;
-            border-radius: 3px;
-            flex-shrink: 0;
-        }
-
-        .card-content h4 {
-            font-size: 14px;
-            font-weight: 600;
-            color: #333;
-            margin-bottom: 2px;
-        }
-
-        .card-content p {
-            font-size: 12px;
-            color: #888;
-        }
-
-        .card-check {
-            margin-left: auto;
-            width: 20px;
-            height: 20px;
-            border-radius: 50%;
-            border: 2px solid #4CAF50;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: #4CAF50;
-            font-size: 12px;
-        }
-
-        .person-illustration {
-            position: absolute;
-            right: -40px;
-            bottom: -30px;
-            z-index: 1;
-        }
-
-        .person-figure {
-            width: 100px;
-            height: 140px;
-            background: #ff9f43;
-            border-radius: 50px 50px 20px 20px;
-            position: relative;
-        }
-
-        .person-head {
-            position: absolute;
-            width: 35px;
-            height: 35px;
-            background: #8B4513;
-            border-radius: 50%;
-            top: 15px;
-            left: 32px;
-        }
-
-        .person-shirt {
-            position: absolute;
-            width: 80px;
-            height: 60px;
-            background: #ff9f43;
-            top: 45px;
-            left: 10px;
-            border-radius: 8px;
-        }
-
-        /* Statistics Section */
-        .stats-section {
-            background: linear-gradient(45deg, #ff9f43 0%, #ff6b35 100%);
-            padding: 50px 0;
-            color: white;
-        }
-
-        .stats-container {
-            display: flex;
-            justify-content: space-around;
-            text-align: center;
-        }
-
-        .stat-item {
-            flex: 1;
-        }
-
-        .stat-number {
-            font-size: 3.5rem;
-            font-weight: 800;
+        label {
+            display: block;
             margin-bottom: 8px;
+            font-weight: 600;
+            color: #2c3e50;
         }
 
-        .stat-label {
-            font-size: 14px;
-            font-weight: 500;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
+        select, textarea, input[type="text"], input[type="file"] {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #e1e8ed;
+            border-radius: 8px;
+            font-size: 1rem;
+            transition: all 0.3s ease;
         }
 
-        /* Featured Content Section */
-        .featured-section {
-            background: linear-gradient(45deg, #ff9f43 0%, #ff6b35 100%);
-            padding: 0 0 60px 0;
+        select:focus, textarea:focus, input:focus {
+            outline: none;
+            border-color: #667eea;
+            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
         }
 
-        .featured-content {
+        textarea {
+            min-height: 100px;
+            resize: vertical;
+        }
+
+        .voice-note-section {
+            display: flex;
+            gap: 10px;
+            align-items: center;
+            margin-top: 10px;
+        }
+
+        .voice-btn {
+            background: #e74c3c;
+            color: white;
+            border: none;
+            padding: 12px 20px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s ease;
             display: flex;
             align-items: center;
-            gap: 40px;
-            background: linear-gradient(45deg, #ff9f43 0%, #ff6b35 100%);
-            padding: 0 40px 40px 40px;
+            gap: 5px;
         }
 
-        .featured-image {
-            flex: 1;
-            max-width: 400px;
+        .voice-btn:hover {
+            background: #c0392b;
+            transform: translateY(-2px);
         }
 
-        .featured-image img {
-            width: 100%;
-            height: 250px;
-            object-fit: cover;
-            border-radius: 15px;
+        .voice-btn.recording {
+            background: #27ae60;
+            animation: pulse 1.5s infinite;
         }
 
-        .featured-text {
-            flex: 1;
-            color: white;
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
         }
 
-        .featured-text h3 {
-            font-size: 1.8rem;
-            font-weight: 700;
-            line-height: 1.3;
+        .location-section {
+            border: 2px dashed #bdc3c7;
+            padding: 20px;
+            border-radius: 8px;
+            text-align: center;
+            margin-top: 10px;
+        }
+
+        .location-options {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
             margin-bottom: 15px;
         }
 
-        .featured-dots {
-            display: flex;
-            gap: 8px;
+        .location-btn {
+            background: #3498db;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .location-btn:hover {
+            background: #2980b9;
+            transform: translateY(-2px);
+        }
+
+        .submit-btn {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            padding: 15px 40px;
+            border-radius: 10px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            width: 100%;
+            transition: all 0.3s ease;
             margin-top: 20px;
         }
 
-        .dot {
-            width: 8px;
-            height: 8px;
-            border-radius: 50%;
-            background: rgba(255,255,255,0.5);
+        .submit-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 25px rgba(102, 126, 234, 0.3);
         }
 
-        .dot.active {
-            background: white;
+        .map-container {
+            height: 400px;
+            border: 2px solid #e1e8ed;
+            border-radius: 8px;
+            position: relative;
+            overflow: hidden;
+            background: #f8f9fa;
         }
 
-        /* Our Agendas Section */
-        .agendas-section {
-            background: white;
-            padding: 80px 0;
-        }
-
-        .agendas-title {
+        .map-placeholder {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
             text-align: center;
-            font-size: 2.5rem;
-            font-weight: 800;
-            color: #333;
-            margin-bottom: 60px;
-        }
-
-        .agendas-grid {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 40px;
-        }
-
-        .agenda-card {
-            background: #f8f8f8;
-            border-radius: 20px;
-            padding: 40px 30px;
-            text-align: center;
-            transition: transform 0.3s ease;
-        }
-
-        .agenda-card:hover {
-            transform: translateY(-8px);
-        }
-
-        .agenda-icon {
-            width: 100px;
-            height: 100px;
-            margin: 0 auto 25px;
-            border-radius: 20px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            position: relative;
-        }
-
-        .agenda-card:nth-child(1) .agenda-icon {
-            background: #ff6b35;
-        }
-
-        .agenda-card:nth-child(2) .agenda-icon {
-            background: #e8e8e8;
-        }
-
-        .agenda-card:nth-child(3) .agenda-icon {
-            background: #ff9f43;
-        }
-
-        /* Phone Icon */
-        .phone-icon {
-            width: 35px;
-            height: 60px;
-            background: white;
-            border-radius: 12px;
-            position: relative;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-
-        .phone-icon::before {
-            content: '';
-            width: 25px;
-            height: 3px;
-            background: #ff6b35;
-            border-radius: 2px;
-            position: absolute;
-            top: 15px;
-        }
-
-        .phone-icon::after {
-            content: '';
-            width: 15px;
-            height: 3px;
-            background: #ff6b35;
-            border-radius: 2px;
-            position: absolute;
-            top: 22px;
-        }
-
-        /* Person Icon */
-        .person-icon-agenda {
-            width: 45px;
-            height: 45px;
-            background: #666;
-            border-radius: 50%;
-            position: relative;
-        }
-
-        .person-icon-agenda::before {
-            content: '';
-            width: 60px;
-            height: 25px;
-            background: #666;
-            border-radius: 0 0 30px 30px;
-            position: absolute;
-            bottom: -15px;
-            left: -7px;
-        }
-
-        /* Location Icon */
-        .location-icon {
-            width: 35px;
-            height: 45px;
-            background: #e91e63;
-            border-radius: 50% 50% 50% 0;
-            transform: rotate(-45deg);
-            position: relative;
-        }
-
-        .location-icon::before {
-            content: '';
-            width: 18px;
-            height: 18px;
-            background: white;
-            border-radius: 50%;
-            position: absolute;
-            top: 8px;
-            left: 8px;
-        }
-
-        .agenda-card h3 {
-            font-size: 18px;
-            font-weight: 700;
-            color: #333;
-            margin-bottom: 12px;
-        }
-
-        .agenda-card p {
-            font-size: 14px;
             color: #666;
-            margin-bottom: 25px;
-            line-height: 1.5;
         }
 
-        .agenda-btn {
-            background: #ff6b35;
+        .legend {
+            margin-top: 20px;
+            display: flex;
+            justify-content: space-around;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        .legend-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 8px 12px;
+            background: #f8f9fa;
+            border-radius: 6px;
+        }
+
+        .legend-color {
+            width: 15px;
+            height: 15px;
+            border-radius: 50%;
+        }
+
+        .red { background: #e74c3c; }
+        .yellow { background: #f39c12; }
+        .green { background: #27ae60; }
+
+        .file-upload-area {
+            border: 2px dashed #bdc3c7;
+            padding: 20px;
+            border-radius: 8px;
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+
+        .file-upload-area:hover {
+            border-color: #667eea;
+            background: rgba(102, 126, 234, 0.05);
+        }
+
+        .uploaded-files {
+            margin-top: 10px;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        .file-tag {
+            background: #667eea;
             color: white;
-            padding: 10px 25px;
-            border-radius: 25px;
-            text-decoration: none;
-            font-size: 14px;
-            font-weight: 500;
+            padding: 5px 10px;
+            border-radius: 15px;
+            font-size: 0.9rem;
+            display: flex;
+            align-items: center;
+            gap: 5px;
         }
 
-        /* Mobile Responsive */
+        .remove-file {
+            background: none;
+            border: none;
+            color: white;
+            cursor: pointer;
+            font-weight: bold;
+        }
+
+        .voice-note-display {
+            margin-top: 10px;
+            padding: 10px;
+            background: #f8f9fa;
+            border-radius: 8px;
+            display: none;
+        }
+
+        .issues-list {
+            max-height: 200px;
+            overflow-y: auto;
+            margin-top: 20px;
+        }
+
+        .issue-item {
+            padding: 10px;
+            margin-bottom: 10px;
+            background: #f8f9fa;
+            border-radius: 8px;
+            border-left: 4px solid;
+        }
+
+        .issue-item.pending { border-left-color: #e74c3c; }
+        .issue-item.in-progress { border-left-color: #f39c12; }
+        .issue-item.resolved { border-left-color: #27ae60; }
+
         @media (max-width: 768px) {
-            .hero-section {
-                flex-direction: column;
-                gap: 30px;
-                text-align: center;
-            }
-
-            .hero-title {
-                font-size: 2.5rem;
-            }
-
-            .stats-container {
-                flex-direction: column;
-                gap: 30px;
-            }
-
-            .featured-content {
-                flex-direction: column;
-                padding: 20px;
-            }
-
-            .agendas-grid {
+            .main-content {
                 grid-template-columns: 1fr;
-                gap: 30px;
             }
-
-            .person-illustration {
-                display: none;
-            }
-
-            .floating-card {
-                min-width: 250px;
-            }
-        }
-
-        @media (max-width: 480px) {
-            .container {
-                padding: 0 15px;
-            }
-
-            .hero-title {
+            
+            .header h1 {
                 font-size: 2rem;
             }
-
-            .stat-number {
-                font-size: 2.5rem;
-            }
-
-            .agendas-title {
-                font-size: 2rem;
+            
+            .location-options {
+                flex-direction: column;
             }
         }
     </style>
 </head>
 <body>
-    <!-- Header Section -->
-    <section class="header">
-        <div class="container">
-            <nav class="nav">
-                <div class="logo">Societal</div>
-                <a href="#" class="download-btn">Download</a>
-            </nav>
+    <div class="container">
+        <div class="header">
+            <h1>🏛️ Civic Issue Portal</h1>
+            <p>Report civic issues and track community progress</p>
+        </div>
+
+        <div class="main-content">
+            <!-- Report Issue Section -->
+            <div class="report-section">
+                <h2 class="section-title">📋 Report an Issue</h2>
+                
+                <form id="issueForm">
+                    <div class="form-group">
+                        <label for="issueType">Issue Type:</label>
+                        <select id="issueType" required>
+                            <option value="">Select issue type</option>
+                            <option value="road-repair">Road Repair</option>
+                            <option value="streetlight">Street Light</option>
+                            <option value="water-supply">Water Supply</option>
+                            <option value="garbage">Garbage Collection</option>
+                            <option value="drainage">Drainage</option>
+                            <option value="traffic">Traffic Management</option>
+                            <option value="park-maintenance">Park Maintenance</option>
+                            <option value="noise-pollution">Noise Pollution</option>
+                            <option value="other">Other</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="description">Issue Description:</label>
+                        <textarea id="description" placeholder="Describe the issue in detail..." required></textarea>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Voice Note (Optional):</label>
+                        <div class="voice-note-section">
+                            <button type="button" class="voice-btn" id="voiceBtn">
+                                🎤 Record Voice Note
+                            </button>
+                            <span id="recordingStatus"></span>
+                        </div>
+                        <div class="voice-note-display" id="voiceNoteDisplay">
+                            <audio controls id="audioPlayback"></audio>
+                            <button type="button" onclick="removeVoiceNote()">Remove</button>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Upload Photos/Videos:</label>
+                        <div class="file-upload-area" onclick="document.getElementById('fileInput').click()">
+                            <p>📷 Click to upload photos or videos</p>
+                            <input type="file" id="fileInput" multiple accept="image/*,video/*" style="display: none;">
+                        </div>
+                        <div class="uploaded-files" id="uploadedFiles"></div>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Location:</label>
+                        <div class="location-section">
+                            <div class="location-options">
+                                <button type="button" class="location-btn" onclick="useCurrentLocation()">
+                                    📍 Use Current Location
+                                </button>
+                                <button type="button" class="location-btn" onclick="pointOnMap()">
+                                    🗺️ Point on Map
+                                </button>
+                            </div>
+                            <input type="text" id="manualAddress" placeholder="Or type address manually...">
+                            <div id="locationDisplay" style="margin-top: 10px; font-weight: bold; color: #27ae60;"></div>
+                        </div>
+                    </div>
+
+                    <button type="submit" class="submit-btn">Submit Issue Report</button>
+                </form>
+            </div>
+
+            <!-- Map Section -->
+            <div class="map-section">
+                <h2 class="section-title">🗺️ City Issues Map</h2>
+                
+                <div class="map-container" id="mapContainer">
+                    <div class="map-placeholder">
+                        <h3>Interactive Map</h3>
+                        <p>View reported issues across the city</p>
+                        <div style="margin-top: 20px;">
+                            <div style="display: inline-block; width: 10px; height: 10px; background: #e74c3c; border-radius: 50%; margin: 5px;"></div>
+                            <div style="display: inline-block; width: 10px; height: 10px; background: #f39c12; border-radius: 50%; margin: 5px;"></div>
+                            <div style="display: inline-block; width: 10px; height: 10px; background: #27ae60; border-radius: 50%; margin: 5px;"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="legend">
+                    <div class="legend-item">
+                        <div class="legend-color red"></div>
+                        <span>Pending</span>
+                    </div>
+                    <div class="legend-item">
+                        <div class="legend-color yellow"></div>
+                        <span>In Progress</span>
+                    </div>
+                    <div class="legend-item">
+                        <div class="legend-color green"></div>
+                        <span>Resolved</span>
+                    </div>
+                </div>
+
+                <div class="issues-list" id="issuesList">
+                    <h3 style="margin-bottom: 15px;">Recent Issues:</h3>
+                    <!-- Sample issues will be populated here -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Global variables
+        let isRecording = false;
+        let mediaRecorder;
+        let audioChunks = [];
+        let currentLocation = null;
+        let uploadedFiles = [];
+        let reportedIssues = [];
+
+        // Initialize the app
+        document.addEventListener('DOMContentLoaded', function() {
+            initializeMap();
+            loadSampleIssues();
+            setupEventListeners();
+        });
+
+        function setupEventListeners() {
+            // File upload handler
+            document.getElementById('fileInput').addEventListener('change', handleFileUpload);
             
-            <div class="hero-section">
-                <div class="hero-left">
-                    <h1 class="hero-title">Report.<br>Track.<br>Resolve.</h1>
-                    <p class="hero-subtitle">Empowering communities to report civic issues with photos, location tagging, and real-time tracking, streamlining municipal response through smart tech.</p>
-                    <a href="#" class="learn-more-btn">Learn more</a>
-                </div>
-                
-                <div class="hero-right">
-                    <div class="phone-cards-container">
-                        <div class="floating-card">
-                            <div class="card-icon"></div>
-                            <div class="card-content">
-                                <h4>Road Repair Request</h4>
-                                <p>Pothole on Main Street requires attention</p>
-                            </div>
-                            <div class="card-check">✓</div>
-                        </div>
-                        <div class="floating-card">
-                            <div class="card-icon"></div>
-                            <div class="card-content">
-                                <h4>Street Light Issue</h4>
-                                <p>Broken light on Park Avenue</p>
-                            </div>
-                        </div>
-                        <div class="floating-card">
-                            <div class="card-icon"></div>
-                            <div class="card-content">
-                                <h4>Water Leak Report</h4>
-                                <p>Pipe burst near community center</p>
-                            </div>
-                        </div>
-                    </div>
+            // Form submission handler
+            document.getElementById('issueForm').addEventListener('submit', handleFormSubmit);
+            
+            // Voice recording handler
+            document.getElementById('voiceBtn').addEventListener('click', toggleVoiceRecording);
+        }
+
+        // Voice recording functionality
+        async function toggleVoiceRecording() {
+            const voiceBtn = document.getElementById('voiceBtn');
+            const recordingStatus = document.getElementById('recordingStatus');
+
+            if (!isRecording) {
+                try {
+                    const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
+                    mediaRecorder = new MediaRecorder(stream);
+                    audioChunks = [];
+
+                    mediaRecorder.ondataavailable = event => {
+                        audioChunks.push(event.data);
+                    };
+
+                    mediaRecorder.onstop = () => {
+                        const audioBlob = new Blob(audioChunks, { type: 'audio/wav' });
+                        const audioUrl = URL.createObjectURL(audioBlob);
+                        document.getElementById('audioPlayback').src = audioUrl;
+                        document.getElementById('voiceNoteDisplay').style.display = 'block';
+                    };
+
+                    mediaRecorder.start();
+                    isRecording = true;
+                    voiceBtn.textContent = '⏹️ Stop Recording';
+                    voiceBtn.classList.add('recording');
+                    recordingStatus.textContent = 'Recording...';
+                } catch (error) {
+                    alert('Unable to access microphone. Please check permissions.');
+                }
+            } else {
+                mediaRecorder.stop();
+                mediaRecorder.stream.getTracks().forEach(track => track.stop());
+                isRecording = false;
+                voiceBtn.textContent = '🎤 Record Voice Note';
+                voiceBtn.classList.remove('recording');
+                recordingStatus.textContent = 'Voice note recorded!';
+            }
+        }
+
+        function removeVoiceNote() {
+            document.getElementById('voiceNoteDisplay').style.display = 'none';
+            document.getElementById('recordingStatus').textContent = '';
+        }
+
+        // File upload functionality
+        function handleFileUpload(event) {
+            const files = Array.from(event.target.files);
+            const uploadedFilesContainer = document.getElementById('uploadedFiles');
+
+            files.forEach(file => {
+                if (!uploadedFiles.find(f => f.name === file.name)) {
+                    uploadedFiles.push(file);
                     
-                    <div class="person-illustration">
-                        <div class="person-figure">
-                            <div class="person-head"></div>
-                            <div class="person-shirt"></div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
+                    const fileTag = document.createElement('div');
+                    fileTag.className = 'file-tag';
+                    fileTag.innerHTML = `
+                        ${file.name}
+                        <button class="remove-file" onclick="removeFile('${file.name}')">&times;</button>
+                    `;
+                    uploadedFilesContainer.appendChild(fileTag);
+                }
+            });
+        }
 
-    <!-- Statistics Section -->
-    <section class="stats-section">
-        <div class="container">
-            <div class="stats-container">
-                <div class="stat-item">
-                    <div class="stat-number">1578</div>
-                    <div class="stat-label">Cases<br>Reported</div>
-                </div>
-                <div class="stat-item">
-                    <div class="stat-number">987</div>
-                    <div class="stat-label">Cases<br>Resolved</div>
-                </div>
-                <div class="stat-item">
-                    <div class="stat-number">65%</div>
-                    <div class="stat-label">Resolution<br>Rate</div>
-                </div>
-            </div>
-        </div>
-    </section>
+        function removeFile(fileName) {
+            uploadedFiles = uploadedFiles.filter(f => f.name !== fileName);
+            const fileTag = Array.from(document.getElementsByClassName('file-tag'))
+                .find(tag => tag.textContent.includes(fileName));
+            if (fileTag) fileTag.remove();
+        }
 
-    <!-- Featured Content Section -->
-    <section class="featured-section">
-        <div class="container">
-            <div class="featured-content">
-                <div class="featured-image">
-                    <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='250' viewBox='0 0 400 250'%3E%3Crect width='400' height='250' fill='%23333'/%3E%3Cpath d='M50 200 Q100 180 150 200 T250 200 T350 200' stroke='%23666' stroke-width='3' fill='none'/%3E%3Crect x='80' y='170' width='40' height='20' fill='%23ff6b35' rx='3'/%3E%3Crect x='150' y='175' width='35' height='18' fill='%23ffb84d' rx='3'/%3E%3Crect x='220' y='165' width='45' height='25' fill='%23ff6b35' rx='3'/%3E%3Ccircle cx='90' cy='185' r='8' fill='%23333'/%3E%3Ccircle cx='110' cy='185' r='8' fill='%23333'/%3E%3Ccircle cx='165' cy='188' r='7' fill='%23333'/%3E%3Ccircle cx='180' cy='188' r='7' fill='%23333'/%3E%3Ctext x='200' y='130' text-anchor='middle' fill='white' font-family='Arial' font-size='12'%3ETraffic Scene%3C/text%3E%3C/svg%3E" alt="Traffic scene showing road conditions">
-                </div>
-                <div class="featured-text">
-                    <h3>An average of 8,880 accidents caused by potholes cost $500 each year between 2018 and 2022 in India.</h3>
-                    <div class="featured-dots">
-                        <div class="dot active"></div>
-                        <div class="dot"></div>
-                        <div class="dot"></div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
+        // Location functionality
+        function useCurrentLocation() {
+            if (navigator.geolocation) {
+                navigator.geolocation.getCurrentPosition(
+                    position => {
+                        currentLocation = {
+                            lat: position.coords.latitude,
+                            lng: position.coords.longitude
+                        };
+                        document.getElementById('locationDisplay').textContent = 
+                            `Current location: ${currentLocation.lat.toFixed(4)}, ${currentLocation.lng.toFixed(4)}`;
+                    },
+                    error => {
+                        alert('Unable to get location. Please check permissions or enter manually.');
+                    }
+                );
+            } else {
+                alert('Geolocation not supported by this browser.');
+            }
+        }
 
-    <!-- Our Agendas Section -->
-    <section class="agendas-section">
-        <div class="container">
-            <h2 class="agendas-title">Our Agendas</h2>
-            <div class="agendas-grid">
-                <div class="agenda-card">
-                    <div class="agenda-icon">
-                        <div class="phone-icon"></div>
-                    </div>
-                    <h3>Smart Reporting</h3>
-                    <p>Report issues through our smart mobile platform</p>
-                    <a href="#" class="agenda-btn">Learn more</a>
+        function pointOnMap() {
+            alert('Map selection feature would integrate with a mapping service like Google Maps or OpenStreetMap.');
+            // This would typically open an interactive map modal
+        }
+
+        // Form submission
+        function handleFormSubmit(event) {
+            event.preventDefault();
+            
+            const formData = new FormData();
+            formData.append('issueType', document.getElementById('issueType').value);
+            formData.append('description', document.getElementById('description').value);
+            formData.append('manualAddress', document.getElementById('manualAddress').value);
+            
+            if (currentLocation) {
+                formData.append('location', JSON.stringify(currentLocation));
+            }
+
+            uploadedFiles.forEach((file, index) => {
+                formData.append(`file_${index}`, file);
+            });
+
+            // Create new issue object
+            const newIssue = {
+                id: Date.now(),
+                type: document.getElementById('issueType').value,
+                description: document.getElementById('description').value,
+                address: document.getElementById('manualAddress').value,
+                status: 'pending',
+                timestamp: new Date().toLocaleString(),
+                location: currentLocation
+            };
+
+            reportedIssues.push(newIssue);
+            addIssueToList(newIssue);
+            
+            // Reset form
+            document.getElementById('issueForm').reset();
+            document.getElementById('uploadedFiles').innerHTML = '';
+            document.getElementById('locationDisplay').textContent = '';
+            document.getElementById('voiceNoteDisplay').style.display = 'none';
+            uploadedFiles = [];
+            currentLocation = null;
+
+            alert('Issue reported successfully! You can track its progress on the map.');
+        }
+
+        // Initialize sample issues and map
+        function initializeMap() {
+            // This would integrate with a real mapping service
+            console.log('Map initialized');
+        }
+
+        function loadSampleIssues() {
+            const sampleIssues = [
+                {
+                    id: 1,
+                    type: 'road-repair',
+                    description: 'Large pothole on Main Street',
+                    address: 'Main Street, Block A',
+                    status: 'pending',
+                    timestamp: '2025-09-14 10:30 AM'
+                },
+                {
+                    id: 2,
+                    type: 'streetlight',
+                    description: 'Broken streetlight near park',
+                    address: 'Park Avenue, Block B',
+                    status: 'in-progress',
+                    timestamp: '2025-09-13 08:15 PM'
+                },
+                {
+                    id: 3,
+                    type: 'garbage',
+                    description: 'Overflowing garbage bin',
+                    address: 'Market Road, Block C',
+                    status: 'resolved',
+                    timestamp: '2025-09-12 02:45 PM'
+                }
+            ];
+
+            sampleIssues.forEach(issue => addIssueToList(issue));
+            reportedIssues = [...sampleIssues];
+        }
+
+        function addIssueToList(issue) {
+            const issuesList = document.getElementById('issuesList');
+            const issueItem = document.createElement('div');
+            issueItem.className = `issue-item ${issue.status}`;
+            
+            const statusText = {
+                'pending': 'Pending',
+                'in-progress': 'In Progress',
+                'resolved': 'Resolved'
+            };
+
+            issueItem.innerHTML = `
+                <div style="font-weight: bold;">${issue.type.replace('-', ' ').toUpperCase()}</div>
+                <div style="margin: 5px 0;">${issue.description}</div>
+                <div style="font-size: 0.9rem; color: #666;">
+                    📍 ${issue.address} | ⏰ ${issue.timestamp}
                 </div>
-                
-                <div class="agenda-card">
-                    <div class="agenda-icon">
-                        <div class="person-icon-agenda"></div>
-                    </div>
-                    <h3>Track your report in real time</h3>
-                    <p>Monitor progress and get updates on your submissions</p>
-                    <a href="#" class="agenda-btn">Learn more</a>
+                <div style="margin-top: 5px; font-weight: bold;">
+                    Status: ${statusText[issue.status]}
                 </div>
-                
-                <div class="agenda-card">
-                    <div class="agenda-icon">
-                        <div class="location-icon"></div>
-                    </div>
-                    <h3>Explore civic issues nearby</h3>
-                    <p>Discover and engage with local community problems</p>
-                    <a href="#" class="agenda-btn">Learn more</a>
-                </div>
-            </div>
-        </div>
-    </section>
+            `;
+
+            issuesList.appendChild(issueItem);
+        }
+    </script>
 </body>
 </html>
