@@ -13,99 +13,93 @@
 
         body {
             font-family: 'Arial', sans-serif;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background: #f2eadf;
             min-height: 100vh;
-            color: #333;
+            color: #402916;
         }
 
         .container {
-            max-width: 1200px;
+            max-width: 420px;
             margin: 0 auto;
-            padding: 20px;
+            padding: 0;
+            min-height: 100vh;
+            background: #f2eadf;
         }
 
         .header {
+            background: linear-gradient(135deg, #f2a516 0%, #f28907 100%);
+            color: white;
             text-align: center;
             margin-bottom: 30px;
-            background: rgba(255, 255, 255, 0.95);
             padding: 30px;
             border-radius: 15px;
             box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+
+            
         }
 
         .header h1 {
-            color: #2c3e50;
-            margin-bottom: 10px;
-            font-size: 2.5rem;
+            font-size: 1.8rem;
+            margin-bottom: 8px;
+            font-weight: 700;
         }
 
         .header p {
-            color: #666;
-            font-size: 1.1rem;
+            font-size: 1rem;
+            opacity: 0.9;
         }
 
         .main-content {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 30px;
-            align-items: start;
+            padding: 30px 20px;
         }
 
-        .report-section, .map-section {
-            background: rgba(255, 255, 255, 0.95);
-            padding: 30px;
-            border-radius: 15px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+        .report-section {
+            background: white;
+            border-radius: 20px;
+            padding: 30px 25px;
+            box-shadow: 0 8px 25px rgba(64, 41, 22, 0.1);
+            margin-bottom: 30px;
         }
 
         .section-title {
-            font-size: 1.8rem;
-            color: #2c3e50;
+            font-size: 1.5rem;
+            color: #402916;
             margin-bottom: 25px;
             text-align: center;
-            position: relative;
-        }
-
-        .section-title:after {
-            content: '';
-            position: absolute;
-            bottom: -10px;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 50px;
-            height: 3px;
-            background: #667eea;
-            border-radius: 2px;
+            font-weight: 700;
         }
 
         .form-group {
-            margin-bottom: 20px;
+            margin-bottom: 25px;
         }
 
         label {
             display: block;
-            margin-bottom: 8px;
+            margin-bottom: 10px;
             font-weight: 600;
-            color: #2c3e50;
+            color: #402916;
+            font-size: 1rem;
         }
 
         select, textarea, input[type="text"], input[type="file"] {
             width: 100%;
-            padding: 12px;
-            border: 2px solid #e1e8ed;
-            border-radius: 8px;
+            padding: 15px;
+            border: 2px solid #e8dcc0;
+            border-radius: 15px;
             font-size: 1rem;
             transition: all 0.3s ease;
+            background: #fefefe;
+            color: #402916;
         }
 
         select:focus, textarea:focus, input:focus {
             outline: none;
-            border-color: #667eea;
-            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+            border-color: #f2a516;
+            box-shadow: 0 0 0 3px rgba(242, 165, 22, 0.1);
         }
 
         textarea {
-            min-height: 100px;
+            min-height: 120px;
             resize: vertical;
         }
 
@@ -113,26 +107,28 @@
             display: flex;
             gap: 10px;
             align-items: center;
-            margin-top: 10px;
+            margin-top: 15px;
         }
 
         .voice-btn {
-            background: #e74c3c;
+            background: linear-gradient(135deg, #f2a516 0%, #f28907 100%);
             color: white;
             border: none;
-            padding: 12px 20px;
-            border-radius: 8px;
+            padding: 15px 25px;
+            border-radius: 25px;
             cursor: pointer;
             font-weight: 600;
             transition: all 0.3s ease;
             display: flex;
             align-items: center;
-            gap: 5px;
+            gap: 8px;
+            font-size: 0.9rem;
+            box-shadow: 0 4px 15px rgba(242, 165, 22, 0.3);
         }
 
         .voice-btn:hover {
-            background: #c0392b;
             transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(242, 165, 22, 0.4);
         }
 
         .voice-btn.recording {
@@ -147,59 +143,73 @@
         }
 
         .location-section {
-            border: 2px dashed #bdc3c7;
+            border: 2px dashed #f2a516;
             padding: 20px;
-            border-radius: 8px;
+            border-radius: 15px;
             text-align: center;
-            margin-top: 10px;
+            margin-top: 15px;
+            background: rgba(242, 165, 22, 0.05);
         }
 
         .location-options {
             display: flex;
+            flex-direction: column;
             gap: 15px;
-            justify-content: center;
-            margin-bottom: 15px;
+            margin-bottom: 20px;
         }
 
         .location-btn {
-            background: #3498db;
+            background: linear-gradient(135deg, #f28907 0%, #f2a516 100%);
             color: white;
             border: none;
-            padding: 10px 20px;
-            border-radius: 8px;
+            padding: 15px 25px;
+            border-radius: 25px;
             cursor: pointer;
             font-weight: 600;
             transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(242, 137, 7, 0.3);
+            font-size: 0.9rem;
         }
 
         .location-btn:hover {
-            background: #2980b9;
             transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(242, 137, 7, 0.4);
         }
 
         .submit-btn {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background: linear-gradient(135deg, #f2a516 0%, #f28907 100%);
             color: white;
             border: none;
-            padding: 15px 40px;
-            border-radius: 10px;
+            padding: 18px 40px;
+            border-radius: 25px;
             font-size: 1.1rem;
-            font-weight: 600;
+            font-weight: 700;
             cursor: pointer;
             width: 100%;
             transition: all 0.3s ease;
-            margin-top: 20px;
+            margin-top: 30px;
+            box-shadow: 0 6px 20px rgba(242, 165, 22, 0.3);
+            text-transform: uppercase;
+            letter-spacing: 1px;
         }
 
         .submit-btn:hover {
             transform: translateY(-3px);
-            box-shadow: 0 10px 25px rgba(102, 126, 234, 0.3);
+            box-shadow: 0 8px 25px rgba(242, 165, 22, 0.4);
+        }
+
+        .map-section {
+            background: white;
+            border-radius: 20px;
+            padding: 30px 25px;
+            box-shadow: 0 8px 25px rgba(64, 41, 22, 0.1);
+            margin-bottom: 30px;
         }
 
         .map-container {
-            height: 400px;
-            border: 2px solid #e1e8ed;
-            border-radius: 8px;
+            height: 300px;
+            border: 2px solid #e8dcc0;
+            border-radius: 15px;
             position: relative;
             overflow: hidden;
             background: #f8f9fa;
@@ -211,7 +221,7 @@
             left: 50%;
             transform: translate(-50%, -50%);
             text-align: center;
-            color: #666;
+            color: #402916;
         }
 
         .legend {
@@ -226,50 +236,55 @@
             display: flex;
             align-items: center;
             gap: 8px;
-            padding: 8px 12px;
-            background: #f8f9fa;
-            border-radius: 6px;
+            padding: 10px 15px;
+            background: rgba(242, 165, 22, 0.1);
+            border-radius: 20px;
+            font-size: 0.9rem;
+            font-weight: 600;
         }
 
         .legend-color {
-            width: 15px;
-            height: 15px;
+            width: 12px;
+            height: 12px;
             border-radius: 50%;
         }
 
         .red { background: #e74c3c; }
-        .yellow { background: #f39c12; }
+        .yellow { background: #f2a516; }
         .green { background: #27ae60; }
 
         .file-upload-area {
-            border: 2px dashed #bdc3c7;
-            padding: 20px;
-            border-radius: 8px;
+            border: 2px dashed #f2a516;
+            padding: 25px;
+            border-radius: 15px;
             text-align: center;
             transition: all 0.3s ease;
+            background: rgba(242, 165, 22, 0.05);
+            cursor: pointer;
         }
 
         .file-upload-area:hover {
-            border-color: #667eea;
-            background: rgba(102, 126, 234, 0.05);
+            border-color: #f28907;
+            background: rgba(242, 165, 22, 0.1);
         }
 
         .uploaded-files {
-            margin-top: 10px;
+            margin-top: 15px;
             display: flex;
             flex-wrap: wrap;
             gap: 10px;
         }
 
         .file-tag {
-            background: #667eea;
+            background: linear-gradient(135deg, #f2a516 0%, #f28907 100%);
             color: white;
-            padding: 5px 10px;
-            border-radius: 15px;
-            font-size: 0.9rem;
+            padding: 8px 15px;
+            border-radius: 20px;
+            font-size: 0.85rem;
             display: flex;
             align-items: center;
-            gap: 5px;
+            gap: 8px;
+            font-weight: 600;
         }
 
         .remove-file {
@@ -278,45 +293,174 @@
             color: white;
             cursor: pointer;
             font-weight: bold;
+            font-size: 1.1rem;
+            opacity: 0.8;
+            transition: opacity 0.3s ease;
+        }
+
+        .remove-file:hover {
+            opacity: 1;
         }
 
         .voice-note-display {
-            margin-top: 10px;
-            padding: 10px;
-            background: #f8f9fa;
-            border-radius: 8px;
+            margin-top: 15px;
+            padding: 15px;
+            background: rgba(242, 165, 22, 0.1);
+            border-radius: 15px;
             display: none;
         }
 
+        .voice-note-display audio {
+            width: 100%;
+            margin-bottom: 10px;
+        }
+
+        .voice-note-display button {
+            background: #f28907;
+            color: white;
+            border: none;
+            padding: 8px 15px;
+            border-radius: 15px;
+            cursor: pointer;
+            font-size: 0.9rem;
+        }
+
         .issues-list {
-            max-height: 200px;
+            max-height: 250px;
             overflow-y: auto;
             margin-top: 20px;
         }
 
+        .issues-list h3 {
+            margin-bottom: 15px;
+            color: #402916;
+            font-size: 1.2rem;
+        }
+
         .issue-item {
-            padding: 10px;
-            margin-bottom: 10px;
-            background: #f8f9fa;
-            border-radius: 8px;
+            padding: 15px;
+            margin-bottom: 15px;
+            background: rgba(242, 165, 22, 0.05);
+            border-radius: 15px;
             border-left: 4px solid;
+            transition: all 0.3s ease;
+        }
+
+        .issue-item:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 15px rgba(64, 41, 22, 0.1);
         }
 
         .issue-item.pending { border-left-color: #e74c3c; }
-        .issue-item.in-progress { border-left-color: #f39c12; }
+        .issue-item.in-progress { border-left-color: #f2a516; }
         .issue-item.resolved { border-left-color: #27ae60; }
 
-        @media (max-width: 768px) {
+        .issue-item div:first-child {
+            font-weight: 700;
+            color: #402916;
+            margin-bottom: 8px;
+            text-transform: capitalize;
+        }
+
+        .issue-item div:nth-child(2) {
+            color: #666;
+            margin-bottom: 8px;
+            line-height: 1.4;
+        }
+
+        .issue-item div:nth-child(3) {
+            font-size: 0.85rem;
+            color: #999;
+            margin-bottom: 8px;
+        }
+
+        .issue-item div:last-child {
+            font-weight: 600;
+            font-size: 0.9rem;
+        }
+
+        #recordingStatus {
+            color: #f28907;
+            font-weight: 600;
+            font-size: 0.9rem;
+        }
+
+        #locationDisplay {
+            margin-top: 15px;
+            font-weight: 600;
+            color: #27ae60;
+            font-size: 0.9rem;
+            padding: 10px;
+            background: rgba(39, 174, 96, 0.1);
+            border-radius: 10px;
+        }
+
+        /* Photo Evidence Section Styling */
+        .photo-evidence-title {
+            font-weight: 600;
+            color: #402916;
+            margin-bottom: 15px;
+            font-size: 1rem;
+        }
+
+        /* Priority Level Styling */
+        select option {
+            color: #402916;
+        }
+
+        /* Scrollbar Styling */
+        .issues-list::-webkit-scrollbar {
+            width: 6px;
+        }
+
+        .issues-list::-webkit-scrollbar-track {
+            background: rgba(242, 165, 22, 0.1);
+            border-radius: 3px;
+        }
+
+        .issues-list::-webkit-scrollbar-thumb {
+            background: #f2a516;
+            border-radius: 3px;
+        }
+
+        .issues-list::-webkit-scrollbar-thumb:hover {
+            background: #f28907;
+        }
+
+        @media (min-width: 768px) {
+            .container {
+                max-width: 1200px;
+                padding: 20px;
+            }
+
             .main-content {
-                grid-template-columns: 1fr;
+                display: grid;
+                grid-template-columns: 1fr 1fr;
+                gap: 30px;
+                align-items: start;
+                padding: 40px 20px;
             }
             
+            .header {
+                border-radius: 25px;
+                margin-bottom: 30px;
+            }
+
             .header h1 {
-                font-size: 2rem;
+                font-size: 2.5rem;
             }
-            
+
             .location-options {
-                flex-direction: column;
+                flex-direction: row;
+                justify-content: center;
+            }
+
+            .map-container {
+                height: 400px;
+            }
+
+            .issues-list {
+                max-height: 300px;
             }
         }
     </style>
@@ -370,7 +514,7 @@
                     </div>
 
                     <div class="form-group">
-                        <label>Upload Photos/Videos:</label>
+                        <label class="photo-evidence-title">Upload Photos/Videos:</label>
                         <div class="file-upload-area" onclick="document.getElementById('fileInput').click()">
                             <p>📷 Click to upload photos or videos</p>
                             <input type="file" id="fileInput" multiple accept="image/*,video/*" style="display: none;">
@@ -390,11 +534,11 @@
                                 </button>
                             </div>
                             <input type="text" id="manualAddress" placeholder="Or type address manually...">
-                            <div id="locationDisplay" style="margin-top: 10px; font-weight: bold; color: #27ae60;"></div>
+                            <div id="locationDisplay"></div>
                         </div>
                     </div>
 
-                    <button type="submit" class="submit-btn">Submit Issue Report</button>
+                    <button type="submit" class="submit-btn">Submit Report</button>
                 </form>
             </div>
 
@@ -408,7 +552,7 @@
                         <p>View reported issues across the city</p>
                         <div style="margin-top: 20px;">
                             <div style="display: inline-block; width: 10px; height: 10px; background: #e74c3c; border-radius: 50%; margin: 5px;"></div>
-                            <div style="display: inline-block; width: 10px; height: 10px; background: #f39c12; border-radius: 50%; margin: 5px;"></div>
+                            <div style="display: inline-block; width: 10px; height: 10px; background: #f2a516; border-radius: 50%; margin: 5px;"></div>
                             <div style="display: inline-block; width: 10px; height: 10px; background: #27ae60; border-radius: 50%; margin: 5px;"></div>
                         </div>
                     </div>
@@ -430,7 +574,7 @@
                 </div>
 
                 <div class="issues-list" id="issuesList">
-                    <h3 style="margin-bottom: 15px;">Recent Issues:</h3>
+                    <h3>Recent Issues:</h3>
                     <!-- Sample issues will be populated here -->
                 </div>
             </div>
@@ -579,16 +723,31 @@
                 formData.append(`file_${index}`, file);
             });
 
+            // Generate unique ID
+            const issueId = 'ISS-' + String(Date.now()).slice(-6);
+
             // Create new issue object
             const newIssue = {
-                id: Date.now(),
+                id: issueId,
                 type: document.getElementById('issueType').value,
+                title: generateIssueTitle(document.getElementById('issueType').value),
                 description: document.getElementById('description').value,
-                address: document.getElementById('manualAddress').value,
+                location: document.getElementById('manualAddress').value || 'Location provided via GPS',
+                coordinates: currentLocation,
                 status: 'pending',
-                timestamp: new Date().toLocaleString(),
-                location: currentLocation
+                priority: 'medium', // Default priority
+                reportedBy: 'Citizen User', // Would come from user login in real app
+                reportedAt: new Date().toLocaleString(),
+                assignedTo: null,
+                assignedAt: null,
+                department: null,
+                media: uploadedFiles.map(f => f.name),
+                voiceNote: document.getElementById('audioPlayback').src ? 'voice_note.mp3' : null,
+                updates: []
             };
+
+            // Save to localStorage for authority portal to access
+            saveIssueToStorage(newIssue);
 
             reportedIssues.push(newIssue);
             addIssueToList(newIssue);
@@ -601,7 +760,37 @@
             uploadedFiles = [];
             currentLocation = null;
 
-            alert('Issue reported successfully! You can track its progress on the map.');
+            alert('Issue reported successfully! Authorities have been notified and you can track its progress on the map.');
+        }
+
+        function generateIssueTitle(issueType) {
+            const titles = {
+                'road-repair': 'Road Repair Required',
+                'streetlight': 'Street Light Issue',
+                'water-supply': 'Water Supply Problem',
+                'garbage': 'Garbage Collection Issue',
+                'drainage': 'Drainage Problem',
+                'traffic': 'Traffic Management Issue',
+                'park-maintenance': 'Park Maintenance Required',
+                'noise-pollution': 'Noise Pollution Complaint',
+                'other': 'Other Civic Issue'
+            };
+            return titles[issueType] || 'Civic Issue';
+        }
+
+        function saveIssueToStorage(newIssue) {
+            // Get existing issues from localStorage
+            let existingIssues = [];
+            const stored = localStorage.getItem('civicIssues');
+            if (stored) {
+                existingIssues = JSON.parse(stored);
+            }
+            
+            // Add new issue
+            existingIssues.push(newIssue);
+            
+            // Save back to localStorage
+            localStorage.setItem('civicIssues', JSON.stringify(existingIssues));
         }
 
         // Initialize sample issues and map
@@ -615,16 +804,16 @@
                 {
                     id: 1,
                     type: 'road-repair',
-                    description: 'Large pothole on Jalukbari',
-                    address: 'Jalukbari, Lankeswar',
+                    description: 'Large pothole on Main Street',
+                    address: 'Main Street, Block A',
                     status: 'pending',
                     timestamp: '2025-09-14 10:30 AM'
                 },
                 {
                     id: 2,
                     type: 'streetlight',
-                    description: 'Broken streetlight near nehru park',
-                    address: 'Kachari, Nehru Park',
+                    description: 'Broken streetlight near park',
+                    address: 'Park Avenue, Block B',
                     status: 'in-progress',
                     timestamp: '2025-09-13 08:15 PM'
                 },
@@ -632,7 +821,7 @@
                     id: 3,
                     type: 'garbage',
                     description: 'Overflowing garbage bin',
-                    address: 'Chandmari, Krishnanagar',
+                    address: 'Market Road, Block C',
                     status: 'resolved',
                     timestamp: '2025-09-12 02:45 PM'
                 }
@@ -654,14 +843,10 @@
             };
 
             issueItem.innerHTML = `
-                <div style="font-weight: bold;">${issue.type.replace('-', ' ').toUpperCase()}</div>
-                <div style="margin: 5px 0;">${issue.description}</div>
-                <div style="font-size: 0.9rem; color: #666;">
-                    📍 ${issue.address} | ⏰ ${issue.timestamp}
-                </div>
-                <div style="margin-top: 5px; font-weight: bold;">
-                    Status: ${statusText[issue.status]}
-                </div>
+                <div>${issue.type.replace('-', ' ').toUpperCase()}</div>
+                <div>${issue.description}</div>
+                <div>📍 ${issue.address} | ⏰ ${issue.timestamp}</div>
+                <div>Status: ${statusText[issue.status]}</div>
             `;
 
             issuesList.appendChild(issueItem);
