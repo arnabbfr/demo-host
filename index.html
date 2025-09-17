@@ -547,15 +547,7 @@
                 <h2 class="section-title">🗺️ City Issues Map</h2>
                 
                 <div class="map-container" id="mapContainer">
-                    <div class="map-placeholder">
-                        <h3>Interactive Map</h3>
-                        <p>View reported issues across the city</p>
-                        <div style="margin-top: 20px;">
-                            <div style="display: inline-block; width: 10px; height: 10px; background: #e74c3c; border-radius: 50%; margin: 5px;"></div>
-                            <div style="display: inline-block; width: 10px; height: 10px; background: #f2a516; border-radius: 50%; margin: 5px;"></div>
-                            <div style="display: inline-block; width: 10px; height: 10px; background: #27ae60; border-radius: 50%; margin: 5px;"></div>
-                        </div>
-                    </div>
+                    <div id="map" style="height: 100%; width: 100%;"></div>
                 </div>
 
                 <div class="legend">
@@ -583,16 +575,22 @@
 
     <script>
         // Global variables
-        let isRecording = false;
+		let isRecording = false;
         let mediaRecorder;
         let audioChunks = [];
-        let currentLocation = null;
+		let currentLocation = null;
         let uploadedFiles = [];
         let reportedIssues = [];
 
-        // Initialize the app
+		// Google Maps globals
+		let map;
+		let mainMarker;
+		let geocoder;
+		let mapClickListener = null;
+
+		// Initialize the app
         document.addEventListener('DOMContentLoaded', function() {
-            initializeMap();
+			// Map initializes via Google callback initMap
             loadSampleIssues();
             setupEventListeners();
         });
@@ -680,7 +678,7 @@
             if (fileTag) fileTag.remove();
         }
 
-        // Location functionality
+		// Location functionality
         function useCurrentLocation() {
             if (navigator.geolocation) {
                 navigator.geolocation.getCurrentPosition(
@@ -691,6 +689,7 @@
                         };
                         document.getElementById('locationDisplay').textContent = 
                             `Current location: ${currentLocation.lat.toFixed(4)}, ${currentLocation.lng.toFixed(4)}`;
+						setMapLocation(currentLocation);
                     },
                     error => {
                         alert('Unable to get location. Please check permissions or enter manually.');
@@ -701,10 +700,29 @@
             }
         }
 
-        function pointOnMap() {
-            alert('Map selection feature would integrate with a mapping service like Google Maps or OpenStreetMap.');
-            // This would typically open an interactive map modal
-        }
+		function pointOnMap() {
+			if (!map) {
+				alert('Map is not ready yet.');
+				return;
+			}
+			if (mapClickListener) {
+				google.maps.event.removeListener(mapClickListener);
+				mapClickListener = null;
+				alert('Map selection cancelled.');
+				return;
+			}
+			alert('Click on the map to set location. Click the button again to cancel.');
+			mapClickListener = map.addListener('click', (e) => {
+				const coords = { lat: e.latLng.lat(), lng: e.latLng.lng() };
+				currentLocation = coords;
+				setMapLocation(coords);
+				document.getElementById('locationDisplay').textContent = `Selected: ${coords.lat.toFixed(4)}, ${coords.lng.toFixed(4)}`;
+				if (mapClickListener) {
+					google.maps.event.removeListener(mapClickListener);
+					mapClickListener = null;
+				}
+			});
+		}
 
         // Form submission
         function handleFormSubmit(event) {
@@ -793,11 +811,26 @@
             localStorage.setItem('civicIssues', JSON.stringify(existingIssues));
         }
 
-        // Initialize sample issues and map
-        function initializeMap() {
-            // This would integrate with a real mapping service
-            console.log('Map initialized');
-        }
+		// Google Maps integration
+		function initMap() {
+			const initialCenter = { lat: 20.5937, lng: 78.9629 }; // Default: India centroid
+			map = new google.maps.Map(document.getElementById('map'), {
+				center: initialCenter,
+				zoom: 5,
+				disableDefaultUI: false,
+				mapTypeControl: false,
+				streetViewControl: false
+			});
+			geocoder = new google.maps.Geocoder();
+			mainMarker = new google.maps.Marker({ map });
+		}
+
+		function setMapLocation(coords) {
+			if (!map) return;
+			map.setCenter(coords);
+			map.setZoom(15);
+			mainMarker.setPosition(coords);
+		}
 
         function loadSampleIssues() {
             const sampleIssues = [
@@ -852,5 +885,6 @@
             issuesList.appendChild(issueItem);
         }
     </script>
+    <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCic2nOSqta56xC_M4nIYodcjSDgAAT4JY&callback=initMap"></script>
 </body>
 </html>
