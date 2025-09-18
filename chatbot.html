@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Chatbot - Powered by Google Gemini</title>
+    <link rel="stylesheet" href="chatbot_styles.css">
+
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1> AI Chatbot </h1>
+            <div class="header-controls">
+                <div class="status-indicator">
+                    <div class="status-dot" id="statusDot"></div>
+                    <span id="statusText">Ready</span>
+                </div>
+                <button class="api-key-btn" onclick="openApiKeyModal()">API Key</button>
+                <button class="theme-toggle" onclick="toggleTheme()" title="Toggle Theme">
+                    <span id="themeIcon">🌙</span>
+                </button>
+            </div>
+        </div>
+
+        <div class="chat-container">
+            <div class="chat-messages" id="chatMessages">
+                <div class="welcome-message">
+                    <h2>👋 Welcome to AI Chatbot!</h2>
+                    <p>I'm powered by Google Gemini AI. Ask me anything!</p>
+                    <p><small>Please configure your API key to start chatting.</small></p>
+                </div>
+            </div>
+
+            <div class="typing-indicator" id="typingIndicator">
+                <div class="typing-dots">
+                    <div class="typing-dot"></div>
+                    <div class="typing-dot"></div>
+                    <div class="typing-dot"></div>
+                </div>
+            </div>
+
+            <div class="chat-input-container">
+                <div class="chat-input-wrapper">
+                    <textarea 
+                        id="chatInput" 
+                        class="chat-input" 
+                        placeholder="Type your message here..."
+                        rows="1"
+                        disabled
+                    ></textarea>
+                    <button id="sendButton" class="send-button" onclick="sendMessage()" disabled>
+                        <span>➤</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- API Key Modal -->
+    <div class="modal" id="apiKeyModal">
+        <div class="modal-content">
+            <h2>🔑 Configure API Key</h2>
+            <p>Enter your Google Gemini API key to start chatting:</p>
+            <input 
+                type="password" 
+                id="apiKeyInput" 
+                placeholder="Enter your Gemini API key..."
+                autocomplete="off"
+            >
+            <div class="modal-buttons">
+                <button class="modal-btn secondary" onclick="closeApiKeyModal()">Cancel</button>
+                <button class="modal-btn primary" onclick="saveApiKey()">Save</button>
+            </div>
+        </div>
+    </div>
+    <script src="chatbot_logic.js"></script>
+</body>
+</html>
