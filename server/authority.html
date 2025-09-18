@@ -1,0 +1,403 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Government Authority Portal</title>
+    <link rel="stylesheet" href="authority-styles.css">
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1> Government Authority Portal</h1>
+            <p>Manage and resolve citizen-reported issues efficiently</p>
+        </div>
+
+        <!-- Statistics Dashboard -->
+        <div class="stats-bar">
+            <div class="stat-card">
+                <div class="stat-number total" id="totalIssues">12</div>
+                <div class="stat-label">Total Issues</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number pending" id="pendingIssues">5</div>
+                <div class="stat-label">Pending</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number in-progress" id="progressIssues">4</div>
+                <div class="stat-label">In Progress</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number resolved" id="resolvedIssues">3</div>
+                <div class="stat-label">Resolved</div>
+            </div>
+        </div>
+
+        <div class="main-content">
+            <!-- Issues Management Section -->
+            <div class="issues-management">
+                <h2 class="section-title"> Issues Management</h2>
+                
+                <!-- Filters -->
+                <div class="filters">
+                    <div class="filter-group">
+                        <label>Status:</label>
+                        <select id="statusFilter" onchange="filterIssues()">
+                            <option value="all">All Status</option>
+                            <option value="pending">Pending</option>
+                            <option value="in-progress">In Progress</option>
+                            <option value="resolved">Resolved</option>
+                        </select>
+                    </div>
+                    <div class="filter-group">
+                        <label>Type:</label>
+                        <select id="typeFilter" onchange="filterIssues()">
+                            <option value="all">All Types</option>
+                            <option value="road-repair">Road Repair</option>
+                            <option value="streetlight">Street Light</option>
+                            <option value="water-supply">Water Supply</option>
+                            <option value="garbage">Garbage Collection</option>
+                            <option value="drainage">Drainage</option>
+                            <option value="traffic">Traffic Management</option>
+                        </select>
+                    </div>
+                    <div class="filter-group">
+                        <label>Priority:</label>
+                        <select id="priorityFilter" onchange="filterIssues()">
+                            <option value="all">All Priorities</option>
+                            <option value="high">High</option>
+                            <option value="medium">Medium</option>
+                            <option value="low">Low</option>
+                        </select>
+                    </div>
+                    <div class="filter-group">
+                        <label>Search:</label>
+                        <input type="text" id="searchFilter" placeholder="Search issues..." oninput="filterIssues()">
+                    </div>
+                </div>
+
+                <!-- Issues List -->
+                <div id="issuesList">
+                    <!-- Issues will be populated here by JavaScript -->
+                </div>
+            </div>
+
+            <!-- Department Assignment Panel -->
+            <div class="assignment-panel">
+                <h2 class="section-title"> Department Management</h2>
+                
+                <div class="departments-list" id="departmentsList">
+                    <!-- Departments will be populated here -->
+                </div>
+            </div>
+        </div>
+
+        <!-- Map Section -->
+        <div class="map-section">
+            <h2 class="section-title"> City Issues Overview</h2>
+            
+            <div class="map-container" id="mapContainer">
+                <div class="map-placeholder">
+                    <h3>Interactive Issues Map</h3>
+                    <p>Visualize all reported issues across the city</p>
+                    <div style="margin-top: 20px;">
+                        <div style="display: inline-block; width: 12px; height: 12px; background: #e74c3c; border-radius: 50%; margin: 5px;"></div>
+                        <div style="display: inline-block; width: 12px; height: 12px; background: #f2a516; border-radius: 50%; margin: 5px;"></div>
+                        <div style="display: inline-block; width: 12px; height: 12px; background: #27ae60; border-radius: 50%; margin: 5px;"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="legend">
+                <div class="legend-item">
+                    <div class="legend-color red"></div>
+                    <span>Pending Issues</span>
+                </div>
+                <div class="legend-item">
+                    <div class="legend-color yellow"></div>
+                    <span>In Progress</span>
+                </div>
+                <div class="legend-item">
+                    <div class="legend-color green"></div>
+                    <span>Resolved Issues</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Issue Details Modal -->
+    <div id="issueModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal()">&times;</span>
+            <div id="modalContent">
+                <!-- Issue details will be populated here -->
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Sample data - in production this would come from a database
+        let issues = [
+            {
+                id: 'ISS-001',
+                type: 'road-repair',
+                title: 'Large Pothole on Main Street',
+                description: 'There is a large pothole on Main Street that is causing damage to vehicles and creating safety hazards for pedestrians.',
+                location: 'Main Street, Block A',
+                coordinates: { lat: 26.7271, lng: 94.2032 },
+                status: 'pending',
+                priority: 'high',
+                reportedBy: 'John Doe',
+                reportedAt: '2025-09-14 10:30 AM',
+                assignedTo: null,
+                assignedAt: null,
+                department: null,
+                media: ['pothole1.jpg', 'pothole2.jpg'],
+                voiceNote: 'voice_note_001.mp3',
+                updates: []
+            },
+            {
+                id: 'ISS-002',
+                type: 'streetlight',
+                title: 'Broken Streetlight Near Park',
+                description: 'The streetlight near the central park is not working, making the area unsafe during nighttime.',
+                location: 'Park Avenue, Block B',
+                coordinates: { lat: 26.7281, lng: 94.2042 },
+                status: 'in-progress',
+                priority: 'medium',
+                reportedBy: 'Jane Smith',
+                reportedAt: '2025-09-13 08:15 PM',
+                assignedTo: 'Electrical Department',
+                assignedAt: '2025-09-14 09:00 AM',
+                department: 'electrical',
+                media: ['streetlight1.jpg'],
+                voiceNote: null,
+                updates: [
+                    { date: '2025-09-14 09:30 AM', note: 'Technician dispatched to inspect the issue', by: 'Electrical Dept' }
+                ]
+            },
+            {
+                id: 'ISS-003',
+                type: 'water-supply',
+                title: 'Water Leak on Residential Street',
+                description: 'Major water leak causing flooding on residential street. Urgent attention required.',
+                location: 'Residential Colony, Block C',
+                coordinates: { lat: 26.7291, lng: 94.2052 },
+                status: 'resolved',
+                priority: 'high',
+                reportedBy: 'Community Representative',
+                reportedAt: '2025-09-12 06:45 AM',
+                assignedTo: 'Water Supply Department',
+                assignedAt: '2025-09-12 08:00 AM',
+                department: 'water-supply',
+                media: ['water_leak1.jpg'],
+                voiceNote: null,
+                updates: [
+                    { date: '2025-09-12 10:00 AM', note: 'Emergency crew dispatched', by: 'Water Dept' },
+                    { date: '2025-09-12 02:30 PM', note: 'Leak repaired and water supply restored', by: 'Water Dept' }
+                ]
+            },
+            {
+                id: 'ISS-004',
+                type: 'garbage',
+                title: 'Overflowing Garbage Bins',
+                description: 'Multiple garbage bins are overflowing in the market area, creating sanitation issues.',
+                location: 'Central Market, Block D',
+                coordinates: { lat: 26.7301, lng: 94.2062 },
+                status: 'pending',
+                priority: 'medium',
+                reportedBy: 'Market Vendor',
+                reportedAt: '2025-09-15 07:20 AM',
+                assignedTo: null,
+                assignedAt: null,
+                department: null,
+                media: ['garbage1.jpg', 'garbage2.jpg'],
+                voiceNote: null,
+                updates: []
+            },
+            {
+                id: 'ISS-005',
+                type: 'drainage',
+                title: 'Blocked Storm Drain',
+                description: 'Storm drain is completely blocked, causing waterlogging during rain.',
+                location: 'Industrial Area, Block E',
+                coordinates: { lat: 26.7311, lng: 94.2072 },
+                status: 'in-progress',
+                priority: 'high',
+                reportedBy: 'Factory Manager',
+                reportedAt: '2025-09-13 11:15 AM',
+                assignedTo: 'Public Works Department',
+                assignedAt: '2025-09-13 02:00 PM',
+                department: 'public-works',
+                media: ['drainage1.jpg'],
+                voiceNote: 'drainage_voice.mp3',
+                updates: [
+                    { date: '2025-09-14 08:00 AM', note: 'Cleaning equipment deployed to site', by: 'Public Works' }
+                ]
+            }
+        ];
+
+        let departments = [
+            {
+                id: 'electrical',
+                name: 'Electrical Department',
+                head: 'Eng. Rajesh Kumar',
+                contact: '+91-9876543210',
+                activeIssues: 2,
+                totalResolved: 45,
+                specialization: ['Street Lights', 'Power Lines', 'Electrical Infrastructure']
+            },
+            {
+                id: 'sanitation',
+                name: 'Sanitation Department',
+                head: 'Mr. Priya Sharma',
+                contact: '+91-9876543211',
+                activeIssues: 1,
+                totalResolved: 78,
+                specialization: ['Garbage Collection', 'Waste Management', 'Cleanliness']
+            },
+            {
+                id: 'public-works',
+                name: 'Public Works Department',
+                head: 'Eng. Amit Singh',
+                contact: '+91-9876543212',
+                activeIssues: 3,
+                totalResolved: 92,
+                specialization: ['Road Repair', 'Infrastructure', 'Construction']
+            },
+            {
+                id: 'water-supply',
+                name: 'Water Supply Department',
+                head: 'Mr. Kavita Devi',
+                contact: '+91-9876543213',
+                activeIssues: 1,
+                totalResolved: 56,
+                specialization: ['Water Distribution', 'Pipe Maintenance', 'Quality Control']
+            },
+            {
+                id: 'traffic',
+                name: 'Traffic Management',
+                head: 'Inspector Ram Prasad',
+                contact: '+91-9876543214',
+                activeIssues: 0,
+                totalResolved: 34,
+                specialization: ['Traffic Signals', 'Road Signs', 'Traffic Flow']
+            }
+        ];
+
+        // Initialize the application
+        document.addEventListener('DOMContentLoaded', function() {
+            renderIssues();
+            renderDepartments();
+            updateStats();
+        });
+
+        function renderIssues(filteredIssues = issues) {
+            const issuesContainer = document.getElementById('issuesList');
+            issuesContainer.innerHTML = '';
+
+            if (filteredIssues.length === 0) {
+                issuesContainer.innerHTML = '<p style="text-align: center; color: #666; padding: 40px;">No issues found matching the current filters.</p>';
+                return;
+            }
+
+            filteredIssues.forEach(issue => {
+                const issueCard = createIssueCard(issue);
+                issuesContainer.appendChild(issueCard);
+            });
+        }
+
+        function createIssueCard(issue) {
+            const card = document.createElement('div');
+            card.className = `issue-card priority-${issue.priority}`;
+            
+            const statusClass = `status-${issue.status}`;
+            const typeDisplay = issue.type.replace('-', ' ').toUpperCase();
+            
+            card.innerHTML = `
+                <div class="issue-header">
+                    <div>
+                        <span class="issue-id">${issue.id}</span>
+                        <span class="issue-type">${typeDisplay}</span>
+                    </div>
+                    <span class="issue-status ${statusClass}">${issue.status.replace('-', ' ')}</span>
+                </div>
+                
+                <div class="issue-details">
+                    <div class="issue-description">
+                        <strong>${issue.title}</strong><br>
+                        ${issue.description}
+                    </div>
+                    
+                    <div class="issue-meta">
+                        <span>📍 ${issue.location}</span>
+                        <span>⏰ ${issue.reportedAt}</span>
+                        <span>👤 ${issue.reportedBy}</span>
+                        <span>🚨 Priority: ${issue.priority.toUpperCase()}</span>
+                    </div>
+                    
+                    ${issue.assignedTo ? `
+                        <div class="issue-meta">
+                            <span>🏢 Assigned to: ${issue.assignedTo}</span>
+                            <span>📅 ${issue.assignedAt}</span>
+                        </div>
+                    ` : ''}
+                </div>
+                
+                <div class="issue-actions">
+                    <button class="btn btn-primary" onclick="viewIssueDetails('${issue.id}')">
+                        👁️ View Details
+                    </button>
+                    
+                    ${issue.status === 'pending' ? `
+                        <button class="btn btn-warning" onclick="assignIssue('${issue.id}')">
+                            📋 Assign Department
+                        </button>
+                    ` : ''}
+                    
+                    ${issue.status === 'in-progress' ? `
+                        <button class="btn btn-success" onclick="updateStatus('${issue.id}', 'resolved')">
+                            ✅ Mark Resolved
+                        </button>
+                    ` : ''}
+                    
+                    <button class="btn btn-primary" onclick="addUpdate('${issue.id}')">
+                        📝 Add Update
+                    </button>
+                    
+                    ${issue.status !== 'resolved' ? `
+                        <button class="btn btn-warning" onclick="changePriority('${issue.id}')">
+                            🚨 Change Priority
+                        </button>
+                    ` : ''}
+                </div>
+                
+                <div class="assignment-form" id="assignForm-${issue.id}">
+                    <h4>Assign to Department</h4>
+                    <div class="form-group">
+                        <label>Department:</label>
+                        <select id="dept-${issue.id}">
+                            <option value="">Select Department</option>
+                            ${departments.map(dept => 
+                                `<option value="${dept.id}">${dept.name}</option>`
+                            ).join('')}
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>Priority:</label>
+                        <select id="priority-${issue.id}">
+                            <option value="low">Low</option>
+                            <option value="medium" ${issue.priority === 'medium' ? 'selected' : ''}>Medium</option>
+                            <option value="high" ${issue.priority === 'high' ? 'selected' : ''}>High</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>Instructions:</label>
+                        <textarea id="instructions-${issue.id}" placeholder="Special instructions for the department..."></textarea>
+                    </div>
+                    <button class="btn btn-success" onclick="confirmAssignment('${issue.id}')">Confirm Assignment</button>
+                    <button class="btn btn-danger" onclick="cancelAssignment('${issue.id}')">Cancel</button>
+                </div>
+            `;
+            
+            return card;
+        }
